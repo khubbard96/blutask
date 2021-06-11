@@ -14,9 +14,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/tasks', async (req, res) => {
-    console.log(req.body);
+    console.log(req.query);
     try {
-        const tasks = await dao.getTasksUntilDate(req.body.untilDate);
+        const tasks = await dao.getTasksUntilDate(req.query.untilDate);
         res.status(200).send(tasks);
     }  
     catch(err) {
