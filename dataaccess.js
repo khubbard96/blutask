@@ -42,6 +42,7 @@ const dao = {
 
     addTask: (task) => {
         return new Promise((res,rej)=> {
+            console.log(task);
             db.query(`insert into task (description,location,importance,date) values (
                 ${task.description || 'No description'},
                 ${task.location || ''},
