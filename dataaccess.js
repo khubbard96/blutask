@@ -55,4 +55,4 @@ const dao = {
 
 }
 
-export default dao;
+module.exports = dao;
