@@ -1,26 +1,31 @@
-const mysql = require('mysql');
-
-const db = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password: 'frost-octopus',
-    database: 'blutask'
-});
-
-db.connect();
-
-db.query('select * from test', (err,res,fields)=>{
-    if(err) throw err;
-    console.log(results);
-})
-
 const express = require('express');
+const dao = require("./dataaccess");
 const app = express();
 const port = 3000;
 
-app.get('/', (req,res)=> {
+dao.connect()
+    .then(() => console.log("db connected."))
+    .catch(() => console.error("connection refused."));
+
+app.get('/', (req, res) => {
     res.send("You've reached the BluTask server");
 });
+
+app.get('/tasks', async (req, res) => {
+    const tasks = await dao.getTasksUntilDate(req.body.untilDate);
+    res.status(200).send(tasks);
+});
+
+app.post("/tasks", async (req,res)=> {
+    try {
+        await dao.addTask(req.body.task);
+        res.status(200).send();
+    } catch(err) {
+        res.status(400).send(err);
+    }
+});
+
+app.delete("/tasks/:id")
 
 app.listen(port, () => {
     console.log("BluTask server listening at port " + port);
