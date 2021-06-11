@@ -3,6 +3,8 @@ const dao = require("./dataaccess");
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+
 dao.connect()
     .then(() => console.log("db connected."))
     .catch(() => console.error("connection refused."));
@@ -12,6 +14,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/tasks', async (req, res) => {
+    console.log(req.body);
     const tasks = await dao.getTasksUntilDate(req.body.untilDate);
     res.status(200).send(tasks);
 });
