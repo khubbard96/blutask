@@ -44,9 +44,9 @@ const dao = {
         return new Promise((res,rej)=> {
             console.log(task);
             db.query(`insert into task (description,location,importance,date) values (
-                ${task.description || 'No description'},
-                ${task.location || ''},
-                ${task.importance || 'D'},
+                '${task.description || 'No description'}',
+                '${task.location || ''}',
+                '${task.importance || 'D'}',
                 ${task.date || 0}
             );`,(err,result)=>{
                 if(err) rej(err);
