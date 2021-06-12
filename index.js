@@ -66,7 +66,7 @@ app.post('/tasks/:id', async(req,res)=> {
     }
 })
 
-app.delete("/tasks/:id",(req,res)=>{
+app.delete("/tasks/:id",async(req,res)=>{
     try {
         const result = await dao.deleteTask(req.params.id);
         res.status(200).send(result);
