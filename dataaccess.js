@@ -40,6 +40,20 @@ const dao = {
         });
     },
 
+    getTask: (id) => {
+        return new Promise((res,rej)=>{
+            db.query(`select * from task where id = ${id};`,
+                (err,result)=> {
+                    if(err) rej(err);
+                    else {
+                        console.log(result[0]);
+                        res(result[0]);
+                    }
+                }
+            )
+        })
+    },
+
     addTask: (task) => {
         return new Promise((res,rej)=> {
             console.log(task);
@@ -64,6 +78,19 @@ const dao = {
                     else res(results);
                 }
             )
+        })
+    },
+
+    updateTask: (id, task) => {
+        return new Promise((res,rej)=>{
+            console.log(task);
+            db.query(`update task set 
+                description='${task.description}',
+                location='${task.location}',
+                importance='${task.importance}',
+                date=${task.date},
+                where id= ${id};
+            `)
         })
     }
 
