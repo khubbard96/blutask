@@ -53,6 +53,18 @@ const dao = {
                 else res(result);
             });
         })
+    },
+
+    deleteTask: (id) => {
+        return new Promise((res,rej)=> {
+            console.log(id);
+            db.query(`delete from task where id = ${id};`,
+                (err,results)=>{
+                    if(err) rej(err);
+                    else res(results);
+                }
+            )
+        })
     }
 
 }

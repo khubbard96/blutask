@@ -34,7 +34,14 @@ app.post("/tasks", async (req,res)=> {
     }
 });
 
-app.delete("/tasks/:id")
+app.delete("/tasks/:id",(req,res)=>{
+    try {
+        const result = await dao.deleteTask(req.params.id);
+        res.status(200).send(result);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+})
 
 app.listen(port, () => {
     console.log("BluTask server listening at port " + port);
